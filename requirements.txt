@@ -1,0 +1,10 @@
+google-genai
+openai
+anthropic
+tenacity
+pandas
+numpy
+pypdf
+openpyxl
+python-docx
+huggingface_hub

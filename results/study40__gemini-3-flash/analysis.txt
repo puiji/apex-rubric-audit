@@ -1,0 +1,80 @@
+run: results/study40__gemini-3-flash   tasks=40   conditions=['contradict', 'contradict_all', 'falsify', 'greybox', 'hedge', 'hedge+pad', 'honest', 'honest_regrade', 'pad', 'truncate']
+
+== mean score by condition ==
+                 mean    std  count
+cond                               
+contradict      0.442  0.253     40
+honest_regrade  0.432  0.268     40
+pad             0.430  0.267     40
+hedge           0.429  0.260     40
+honest          0.429  0.269     40
+contradict_all  0.428  0.258     40
+greybox         0.425  0.242     40
+hedge+pad       0.416  0.262     40
+truncate        0.252  0.215     40
+falsify         0.149  0.166     40
+
+== all tasks: paired delta vs honest ==
+condition         n   delta             95% CI             90% CI  equiv±.03  sign p  up/flat/down
+honest_regrade   40  +0.004 [+0.000, +0.008] [+0.001, +0.007]        YES   0.250    3/37/0
+pad              40  +0.002 [-0.004, +0.009] [-0.004, +0.008]        YES   1.000    2/37/1
+hedge            40  +0.000 [-0.018, +0.017] [-0.014, +0.015]        YES   1.000    6/28/6
+hedge+pad        40  -0.013 [-0.027, +0.001] [-0.025, -0.001]        YES   0.070    1/32/7
+contradict       40  +0.013 [-0.020, +0.050] [-0.015, +0.044]         no   1.000    9/23/8
+contradict_all   40  -0.000 [-0.032, +0.029] [-0.026, +0.025]        YES   1.000    9/23/8
+falsify          40  -0.280 [-0.367, -0.193] [-0.357, -0.207]         no   0.000    2/5/33
+truncate         40  -0.177 [-0.238, -0.122] [-0.228, -0.131]         no   0.000    0/10/30
+greybox          40  -0.003 [-0.062, +0.053] [-0.052, +0.043]         no   0.701   15/13/12
+
+== pre-registered checks ==
+sanity  truncate delta <= -0.10 ........ -0.177  PASS
+sanity  regrade mean|delta| <= 0.02 .... 0.004  PASS
+H1      contradict_all  equivalent within ±0.03 ... YES   (falsifier delta <= -0.05: PASS)
+H1      pad             equivalent within ±0.03 ... YES   (falsifier delta <= -0.05: PASS)
+H2      falsify 0.149 vs honest 0.429 (ratio 0.35); predicted >= 0.5 ... FAIL
+H2      falsifier: falsify delta (-0.280) <= truncate delta (-0.177) ... CLAIM FALSIFIED
+H3      greybox CI includes 0: PASS;  per-domain {'Consulting': 0.03, 'Finance': -0.155, 'Legal': 0.013, 'Medicine': 0.099}
+
+== tasks not in pilot (n=20): paired delta vs honest ==
+condition         n   delta             95% CI             90% CI  equiv±.03  sign p  up/flat/down
+honest_regrade   20  +0.005 [+0.000, +0.013] [+0.000, +0.011]        YES   0.500    2/18/0
+pad              20  -0.001 [-0.011, +0.007] [-0.008, +0.005]        YES   1.000    1/18/1
+hedge            20  -0.002 [-0.021, +0.018] [-0.018, +0.014]        YES   1.000    2/15/3
+hedge+pad        20  -0.011 [-0.026, +0.000] [-0.023, -0.002]        YES   0.250    0/17/3
+contradict       20  +0.038 [-0.017, +0.106] [-0.009, +0.092]         no   0.508    6/11/3
+contradict_all   20  +0.009 [-0.032, +0.052] [-0.025, +0.045]         no   1.000    5/11/4
+falsify          20  -0.289 [-0.432, -0.150] [-0.407, -0.173]         no   0.001    2/1/17
+truncate         20  -0.202 [-0.315, -0.105] [-0.296, -0.118]         no   0.000    0/7/13
+greybox          20  +0.009 [-0.085, +0.091] [-0.070, +0.079]         no   0.424    9/6/5
+
+== length vs score (Spearman, within condition) ==
+contradict      rho=+0.21
+contradict_all  rho=+0.19
+falsify         rho=-0.11
+greybox         rho=+0.30
+hedge           rho=+0.33
+hedge+pad       rho=+0.31
+honest          rho=+0.31
+honest_regrade  rho=+0.29
+pad             rho=+0.34
+truncate        rho=+0.06
+
+== by domain ==
+cond        contradict  contradict_all  falsify  greybox  hedge  hedge+pad  honest  honest_regrade    pad  truncate
+domain                                                                                                             
+Consulting       0.283           0.239    0.115    0.269  0.249      0.239   0.239           0.239  0.249     0.062
+Finance          0.509           0.509    0.059    0.362  0.509      0.509   0.517           0.517  0.517     0.252
+Legal            0.603           0.591    0.264    0.611  0.584      0.563   0.598           0.598  0.598     0.401
+Medicine         0.371           0.373    0.157    0.460  0.372      0.352   0.361           0.376  0.358     0.293
+
+== pass rate by criterion type x condition ==
+cond                            contradict  contradict_all  falsify  greybox  hedge  hedge+pad  honest  honest_regrade    pad  truncate
+ctype                                                                                                                                  
+Extraction (recall)                  0.600           0.600    0.444    0.667  0.600      0.600   0.600           0.600  0.600     0.579
+Extraction (recall); Reasoning       0.366           0.390    0.182    0.400  0.366      0.366   0.366           0.366  0.366     0.316
+Reasoning                            0.511           0.522    0.317    0.522  0.500      0.500   0.511           0.522  0.522     0.350
+Reasoning; Extraction (recall)       0.545           0.409    0.250    0.500  0.571      0.524   0.524           0.571  0.524     0.455
+Style                                1.000           1.000    0.667    0.667  1.000      0.667   0.667           0.667  1.000     0.000
+
+== judge agreement study40__gemini-3-flash vs study40__gemini-3.1-pro ==
+n criteria=54  raw agreement=0.963  Cohen's kappa=0.922
