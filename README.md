@@ -16,7 +16,7 @@ research proposal built on it.
 40 tasks from the public APEX-v1 split, 10 per domain. Rubric judge: Gemini 3 Flash, one criterion per call,
 binary pass/fail. Blind judge: GPT-4.1, no rubric, both presentation orders. Full tables, the failed prediction,
 and what the data does not show are in [RESULTS.md](RESULTS.md). Hypotheses and falsifiers written before the
-data existed are in [PREREG.md](PREREG.md). The one-page proposal is [PROPOSAL.pdf](PROPOSAL.pdf).
+data existed are in [PREREG.md](PREREG.md). The one-page proposal is [PROPOSAL.md](PROPOSAL.md).
 
 ## Layout
 
