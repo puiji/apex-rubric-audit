@@ -23,4 +23,4 @@ The first three rows are the finding: responses a blind judge rates worse nine t
 
 **Caveats.** One generator. Flash judge, not the paper's Pro (κ = 0.92 with Pro on a 54-criterion subset). LLM quality proxy. n = 40, one seed. Each is a reason to do the study properly, not a reason to doubt the direction.
 
-Pre-registration, full results, and code: github.com/<your-handle>/apex-rubric-audit
+Pre-registration, full results, and code: github.com/puiji/apex-rubric-audit
